@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FunTest
+namespace VotingSoftware
 {
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
+            
             Configuration = configuration;
         }
 
@@ -21,6 +18,11 @@ namespace FunTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            using (var context = new ApplicationDbContext())
+            {
+                //make sure database is created
+                context.Database.EnsureCreated();
+            }
             services.AddMvc();
         }
 
@@ -29,12 +31,12 @@ namespace FunTest
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error"); //contoller/action
             }
 
             app.UseStaticFiles();
@@ -43,7 +45,13 @@ namespace FunTest
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}"); //id part is the parameter name, must be same name
+
+                //test route
+                routes.MapRoute(
+                    name: "aboutPage",
+                    template: "more", 
+                    defaults: new { controller= "About", action="TellMeMore" });
             });
         }
     }
