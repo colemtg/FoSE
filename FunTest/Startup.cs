@@ -18,11 +18,11 @@ namespace VotingSoftware
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            using (var context = new ApplicationDbContext())
-            {
+            //using (var context = new ApplicationDbContext())
+           // {
                 //make sure database is created
-                context.Database.EnsureCreated();
-            }
+             //   context.Database.EnsureCreated();
+            //}
             services.AddMvc();
         }
 

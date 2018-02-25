@@ -2,16 +2,15 @@
 using System;
 namespace VotingSoftware.Controllers
 {
-    public class AboutController : Controller
+    public class UserRegistrationController : Controller
     {
         public IActionResult Index()
         {
             return View(); //Index view
         }
-        public IActionResult TellMeMore(string id="")
+        public IActionResult Error()
         {
-            return Content($"You asked me about {id}");
-            //return View(); //Index view
+            return View(); //Error view
         }
     }
 
